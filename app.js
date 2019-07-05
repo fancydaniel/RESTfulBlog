@@ -1,6 +1,7 @@
 var bodyParser = require("body-parser"),
 mongoose = require("mongoose"),
 express = require("express"),
+port = 3000,
 app = express();
 
 // App Config
@@ -19,11 +20,14 @@ var blogSchema = new mongoose.Schema({
 
 var Blog = mongoose.model("Blog", blogSchema);
 
-
-
 //RESTful Routes
 
-
-app.listen(process.env.PORT, process.env.IP, function(){
-  console.log("Server is running!")
+app.get("/", function(req, res){
+  res.redirect("/blogs");
 });
+
+app.get("/blogs", function(req, res){
+  res.render("index");
+});
+
+app.listen(port, () => console.log('Gator app listening on port 3000!'));
