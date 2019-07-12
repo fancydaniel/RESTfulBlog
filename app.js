@@ -46,16 +46,21 @@ app.post("/blogs", function(req, res){
     }
   });
   //redirect
+});
 
-})
-
-// New Route
 app.get("/blogs/new", function(req, res){
   res.render("new");
 });
 
-// Create Route
-
+app.get("/blogs/:id", function(req, res){
+  Blog.findById(req.params.id, function(err, foundBlog){
+    if(err) {
+      res.redirect("/blogs");
+    } else {
+      res.render("show", {blog: foundBlog});
+    }
+  });
+});
 
 
 app.listen(port, () => console.log('Gator app listening on port 3000!'));
